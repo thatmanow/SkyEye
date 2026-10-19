@@ -1,0 +1,37 @@
+# 天眼通 TianYanTong v2.4 —— 后端依赖清单（tyt 包实际使用）
+# 安装：pip install -r requirements.txt（Python 3.13 / conda base）
+
+# Web 框架
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+pydantic>=2.5.0
+python-multipart>=0.0.6          # 文件上传（头像/帖子配图）
+
+# 数据库
+sqlalchemy>=2.0.0
+pymysql>=1.1.0                   # MySQL 驱动（SkyEye2.0 库）
+redis>=5.0.0                     # 缓存/配额计数/Celery Broker（127.0.0.1:6380）
+neo4j>=5.0.0                     # 关系图谱
+elasticsearch>=8.0.0             # 全文检索（未启用自动降级 MySQL）
+
+# 异步任务
+celery[redis]>=5.3.0             # 尽调报告生成 / 监控扫描 / 日报周报 / 会员到期
+
+# AI / 向量库
+qdrant-client>=1.7.0              # RAG 知识库（database/tyt_qdrant，本地持久化模式，无需独立服务）
+httpx>=0.25.0                    # Ollama / bge-reranker / 高德 API 调用
+
+# 认证与加密
+PyJWT>=2.8.0
+bcrypt>=4.0.0
+cryptography>=41.0.0             # AES-GCM 敏感字段加密
+
+# 报告导出（PDF/Excel）
+reportlab>=4.0.0
+openpyxl>=3.1.0
+
+# 爬虫数据源
+requests>=2.31.0                 # 人民网资讯爬虫（crawler.py）
+beautifulsoup4>=4.12.0
+lxml>=4.9.0
+baostock>=0.8.9                  # 证券行情采集（baostock/baostock_crawler.py）

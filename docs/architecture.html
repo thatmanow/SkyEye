@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+    background: #eef2f7;
+    width: 1560px;
+    padding: 28px 30px 34px;
+    color: #1f2d3d;
+  }
+  .title { text-align: center; font-size: 30px; font-weight: 800; letter-spacing: 2px; color: #16324f; }
+  .subtitle { text-align: center; font-size: 13.5px; color: #7a8ba3; margin-top: 6px; margin-bottom: 22px; letter-spacing: 1px; }
+
+  .layer {
+    border-radius: 12px;
+    padding: 12px 16px 14px;
+    background: #fff;
+    border: 1.5px solid;
+    position: relative;
+  }
+  .layer-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; }
+  .layer-name { font-size: 17.5px; font-weight: 800; }
+  .layer-sub { font-size: 12px; color: #6b7c93; }
+
+  /* 客户端 */
+  .l-client { border-color: #4a90d9; background: linear-gradient(180deg, #f4f9ff, #eaf3fd); }
+  .l-client .layer-name { color: #2b6cb0; }
+  .client-box {
+    background: #fff; border: 1.5px solid #7fb3e8; border-radius: 8px;
+    padding: 10px 26px; text-align: center; font-size: 14.5px; font-weight: 600;
+    color: #2b6cb0; box-shadow: 0 2px 5px rgba(43,108,176,.10);
+  }
+
+  /* 前端层 */
+  .l-frontend { border-color: #3ba776; background: linear-gradient(180deg, #f4fcf8, #eafaf2); }
+  .l-frontend .layer-name { color: #1e7d52; }
+  .fe-group { border: 1.2px dashed #7fc9a4; border-radius: 8px; padding: 8px 10px 10px; margin-top: 8px; }
+  .fe-group-title { font-size: 12.5px; font-weight: 700; color: #1e7d52; margin-bottom: 7px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 7px; }
+  .chip {
+    background: #fff; border: 1.2px solid #a8d8bf; border-radius: 6px;
+    padding: 5px 11px; font-size: 12.5px; color: #24614a; font-weight: 600;
+    box-shadow: 0 1px 3px rgba(30,125,82,.08);
+  }
+  .chip.hl { border-color: #3ba776; background: #e8f8f0; }
+  .chip.note { color: #4a6d5e; font-weight: 500; border-style: dashed; max-width: 560px; line-height: 1.5; }
+  .row2 { display: flex; gap: 10px; margin-top: 8px; }
+  .row2 .fe-group { flex: 1; margin-top: 0; }
+  .fe-solo { margin-top: 8px; }
+
+  /* 应用层 */
+  .l-gw { border-color: #7c6bd6; background: linear-gradient(180deg, #f8f6ff, #f1eeff); }
+  .l-gw .layer-name { color: #5a48b8; }
+  .gw-flow { display: flex; align-items: stretch; gap: 0; margin-bottom: 9px; }
+  .gw-node {
+    border-radius: 8px; padding: 8px 12px; font-size: 12.5px; font-weight: 700;
+    text-align: center; display: flex; flex-direction: column; justify-content: center;
+    box-shadow: 0 1.5px 4px rgba(90,72,184,.12);
+  }
+  .gw-node small { font-weight: 500; color: #5b6b85; font-size: 11px; margin-top: 3px; line-height: 1.45; }
+  .gw-arrow { display: flex; align-items: center; padding: 0 6px; color: #7c6bd6; font-size: 16px; font-weight: 700; }
+  .n-static { background: #eef3ff; border: 1.4px solid #93a8e8; color: #3d55a8; }
+  .n-auth   { background: #fff3ec; border: 1.4px solid #e8a98c; color: #b05626; }
+  .n-router { background: #eefcf5; border: 1.4px solid #79c9a2; color: #1e7d52; }
+  .n-svc    { background: #f3efff; border: 1.4px solid #b39ce8; color: #5a48b8; }
+  .router-chips { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 9px; }
+  .router-chips .chip { border-color: #93a8e8; color: #3d55a8; padding: 3px 8px; font-size: 11.5px; font-weight: 500; box-shadow: none; }
+  .gw-bottom { display: flex; gap: 9px; }
+  .gw-box {
+    flex: 1; border-radius: 8px; padding: 8px 12px; font-size: 12px; line-height: 1.55;
+    background: #fff; border: 1.2px solid #c3b8ef;
+  }
+  .gw-box b { color: #5a48b8; font-size: 12.5px; }
+
+  /* Celery */
+  .l-celery { border-color: #d9a13c; background: linear-gradient(180deg, #fffbf2, #fdf4e0); border-style: dashed; }
+  .l-celery .layer-name { color: #b07d1e; }
+  .celery-chips .chip { border-color: #e3bd72; color: #8a6216; background: #fff; }
+
+  /* 底部三列 */
+  .bottom3 { display: flex; gap: 14px; }
+  .bottom3 .layer { flex: 1; }
+  .l-data { border-color: #4a90d9; background: linear-gradient(180deg, #f7fbff, #edf5fd); }
+  .l-data .layer-name { color: #2b6cb0; }
+  .db { display: flex; align-items: flex-start; gap: 9px; border-radius: 8px; padding: 8px 11px; margin-bottom: 7px; border: 1.3px solid; }
+  .db:last-child { margin-bottom: 0; }
+  .db b { font-size: 13px; display: block; }
+  .db span { font-size: 11px; line-height: 1.5; color: #5b6b85; display: block; margin-top: 2px; }
+  .db-mysql  { background: #eef6fc; border-color: #7fb3e8; } .db-mysql b { color: #1c5a8f; }
+  .db-redis  { background: #fdf1f0; border-color: #e8a09a; } .db-redis b { color: #b03a30; }
+  .db-neo4j  { background: #f0f7ff; border-color: #8ab6e0; } .db-neo4j b { color: #2b6cb0; }
+  .db-qdrant { background: #f2efff; border-color: #b39ce8; } .db-qdrant b { color: #5a48b8; }
+  .db-fs     { background: #f4f6f8; border-color: #b8c4d0; } .db-fs b { color: #55677a; }
+  .db-es     { background: #fdf7ee; border-color: #e3bd72; } .db-es b { color: #9a6d1a; }
+  .l-ai { border-color: #9c6bd6; background: linear-gradient(180deg, #fbf7ff, #f4edff); }
+  .l-ai .layer-name { color: #7440b8; }
+  .l-ai .db { border-color: #c9a8ef; background: #fff; } .l-ai .db b { color: #7440b8; }
+  .l-ext { border-color: #38a8b8; background: linear-gradient(180deg, #f4fcfd, #e9f8fa); }
+  .l-ext .layer-name { color: #1e7f8f; }
+  .l-ext .db { border-color: #7ec9d4; background: #fff; } .l-ext .db b { color: #1e7f8f; }
+
+  /* 层间箭头带 */
+  .flow-strip { display: flex; justify-content: center; gap: 34px; padding: 7px 0; }
+  .flow { display: flex; flex-direction: column; align-items: center; }
+  .flow .lbl { font-size: 11.5px; color: #48607e; font-weight: 600; margin-bottom: 1px; background: #eef2f7; padding: 0 6px; }
+  .flow .arr { font-size: 19px; line-height: 1; color: #6c82a0; font-weight: 700; }
+  .flow .arr.dash { color: #b07d1e; }
+</style>
+</head>
+<body>
+
+<div class="title">天眼通 SkyEye v2.9.1 · 系统架构图</div>
+<div class="subtitle">Vue3 SPA + FastAPI 单体 · 多存储协同 · 本地 AI（Ollama）+ 云端百炼可选 · RBAC 多角色</div>
+
+<!-- 客户端层 -->
+<div class="layer l-client">
+  <div class="layer-head"><span class="layer-name">客户端层</span><span class="layer-sub">Client</span></div>
+  <div class="client-box">浏览器（Chrome / Edge 等现代浏览器）</div>
+</div>
+
+<div class="flow-strip"><div class="flow"><span class="lbl">HTTPS</span><span class="arr">⬇</span></div></div>
+
+<!-- 前端层 -->
+<div class="layer l-frontend">
+  <div class="layer-head"><span class="layer-name">前端层 · Vue3 SPA</span><span class="layer-sub">Vite 构建，静态托管于 FastAPI · TypeScript + Element Plus + Pinia + ECharts / AntV G6</span></div>
+
+  <div class="fe-group">
+    <div class="fe-group-title">通用框架</div>
+    <div class="chips">
+      <span class="chip hl">落地页 Landing</span>
+      <span class="chip hl">应用布局（顶栏 / 侧边栏 / 路由守卫）</span>
+      <span class="chip note">会话保持 auth.init：启动即 refresh token 续期后再拉用户信息；角色 30s 周期同步 ensureRoleSync（重开免登录 · 角色变更免重登）</span>
+    </div>
+  </div>
+
+  <div class="row2">
+    <div class="fe-group">
+      <div class="fe-group-title">生活模块</div>
+      <div class="chips">
+        <span class="chip">仪表盘</span><span class="chip">商家查询</span><span class="chip">房源查询</span>
+        <span class="chip">求职避坑</span><span class="chip">个人查询</span><span class="chip">AI 识图</span><span class="chip">定位天气</span>
+      </div>
+    </div>
+    <div class="fe-group">
+      <div class="fe-group-title">社区模块</div>
+      <div class="chips"><span class="chip">生活圈</span><span class="chip">帖子详情</span></div>
+    </div>
+  </div>
+
+  <div class="fe-group">
+    <div class="fe-group-title">商业尽调模块</div>
+    <div class="chips">
+      <span class="chip">企业查询</span><span class="chip">企业详情</span><span class="chip">关系图谱 G6</span>
+      <span class="chip">商业监控</span><span class="chip">尽调报告</span><span class="chip">商机线索</span><span class="chip">股票分析</span>
+    </div>
+  </div>
+
+  <div class="fe-solo chips">
+    <span class="chip hl">AI 问答</span>
+    <span class="chip hl">平台管理（含模型管理）</span>
+    <span class="chip">个人中心</span>
+    <span class="chip">会员权益弹窗 MembershipDialog</span>
+    <span class="chip">顶栏消息中心铃铛（AppLayout 内）</span>
+  </div>
+</div>
+
+<div class="flow-strip"><div class="flow"><span class="lbl">Axios REST / SSE</span><span class="arr">⬇</span></div></div>
+
+<!-- 应用层 -->
+<div class="layer l-gw">
+  <div class="layer-head"><span class="layer-name">应用层 · FastAPI</span><span class="layer-sub">uvicorn :8000 单进程：API + SSE + 静态托管 + 后台任务</span></div>
+
+  <div class="gw-flow">
+    <div class="gw-node n-static" style="flex:0 0 170px;">静态服务<small>/uploads /assets<br>SPA fallback + no-cache</small></div>
+    <div class="gw-arrow">→</div>
+    <div class="gw-node n-auth" style="flex:0 0 300px;">JWT 身份认证 + RBAC 能力校验<small>仅认 sub · 角色以 DB 实时为准 · Redis 角色缓存 15s 变更即失效<br>升级 / 改角色 / 到期降级下一次请求即生效 · 历史类接口仅校验登录 + 用户隔离</small></div>
+    <div class="gw-arrow">→</div>
+    <div class="gw-node n-router" style="flex:0 0 200px;">API 路由（/api/v1 · 16 组）<small>见下方路由清单</small></div>
+    <div class="gw-arrow">→</div>
+    <div class="gw-node n-svc" style="flex:1;">服务层 services（22 个）<small>业务逻辑 / 配额 / 审计 / 通知 / 知识同步 / 模型预热…</small></div>
+  </div>
+
+  <div class="router-chips">
+    <span class="chip">auth 认证</span><span class="chip">life 生活</span><span class="chip">community 生活圈</span><span class="chip">biz 商业</span>
+    <span class="chip">graph 图谱</span><span class="chip">monitor 监控</span><span class="chip">report 报告</span><span class="chip">lead 线索</span>
+    <span class="chip">stock 股票</span><span class="chip">ai 问答</span><span class="chip">vision 识图</span><span class="chip">weather 天气</span>
+    <span class="chip">dashboard 仪表盘</span><span class="chip">admin 管理</span><span class="chip">billing 会员订阅</span><span class="chip">notification 站内通知</span>
+  </div>
+
+  <div class="gw-bottom">
+    <div class="gw-box"><b>⚡ 进程内后台任务（FastAPI BackgroundTasks）</b><br>尽调报告生成：queued → running(10%) → done(100%) / failed，完成写站内通知</div>
+    <div class="gw-box"><b>📡 SSE 实时流</b><br>爬虫进度 / 证券行情推送，长连接单向服务端推送</div>
+  </div>
+</div>
+
+<div class="flow-strip"><div class="flow"><span class="lbl">Routers -.-> 投递（可选）</span><span class="arr dash">⬇</span></div></div>
+
+<!-- Celery -->
+<div class="layer l-celery">
+  <div class="layer-head"><span class="layer-name">Celery 异步层</span><span class="layer-sub">可选：需单独启动 Worker + Beat 才生效（Redis 作 Broker）</span></div>
+  <div class="chips celery-chips">
+    <span class="chip">⏱ 监控扫描（每小时）</span>
+    <span class="chip">📰 监控日报（每日）</span>
+    <span class="chip">💳 会员自动续费 / 降级（每日）</span>
+  </div>
+</div>
+
+<div class="flow-strip">
+  <div class="flow"><span class="lbl">Services 读写</span><span class="arr">⬇</span></div>
+  <div class="flow"><span class="lbl">Services 调用</span><span class="arr">⬇</span></div>
+  <div class="flow"><span class="lbl">Services 调用</span><span class="arr">⬇</span></div>
+  <div class="flow"><span class="lbl">Celery / 后台任务读写</span><span class="arr dash">⬇</span></div>
+</div>
+
+<!-- 底部三列 -->
+<div class="bottom3">
+  <div class="layer l-data">
+    <div class="layer-head"><span class="layer-name">数据层</span><span class="layer-sub">Data</span></div>
+    <div class="db db-mysql"><div><b>MySQL 8.0</b><span>业务库 SkyEye2.0 · 30+ 张表（用户/企业/订单/审计/系统设置…）</span></div></div>
+    <div class="db db-redis"><div><b>Redis 7 :6380</b><span>缓存 / 角色缓存 / 配额计数 / 日期标志 / 黑名单 / Celery Broker</span></div></div>
+    <div class="db db-neo4j"><div><b>Neo4j 5 :7687</b><span>关系图谱（股权穿透 / 疑似实控人变长路径计算）</span></div></div>
+    <div class="db db-qdrant"><div><b>Qdrant 向量库</b><span>本地持久化 database/tyt_qdrant · collection: tyt_knowledge（RAG 知识库）</span></div></div>
+    <div class="db db-fs"><div><b>本地文件存储</b><span>uploads/（avatars · 图片）· storage/reports（尽调报告）</span></div></div>
+    <div class="db db-es"><div><b>Elasticsearch :9200</b><span>可选 · 未启用时降级 MySQL FULLTEXT(ngram) 全文检索</span></div></div>
+  </div>
+
+  <div class="layer l-ai">
+    <div class="layer-head"><span class="layer-name">本地 AI 层</span><span class="layer-sub">Ollama</span></div>
+    <div class="db"><div><b>Ollama :11434</b><span>qwen2.5:1.5b 对话（本地问答）· bge-large-zh-v1.5 嵌入 · MiniCPM-V 4.6 视觉识图<br>云端可选：百炼 qwen-plus 问答 / qwen-vl-ocr 识图（管理端开关，失败自动降级本地）</span></div></div>
+    <div class="db"><div><b>bge-reranker-v2-m3 :9999</b><span>重排打分（sigmoid 0-1）· 多路召回 RRF 融合后精排 Top5</span></div></div>
+    <div class="db"><div><b>模型预热服务</b><span>启动即加载本地三模型 / keep_alive 常驻 / 周期刷新（百炼云端不预热）</span></div></div>
+  </div>
+
+  <div class="layer l-ext">
+    <div class="layer-head"><span class="layer-name">外部服务</span><span class="layer-sub">External</span></div>
+    <div class="db"><div><b>高德地图 JS API</b><span>地图渲染 / 逆地理编码 / IP 定位</span></div></div>
+    <div class="db"><div><b>Open-Meteo</b><span>天气数据（免 Key）</span></div></div>
+    <div class="db"><div><b>人民网</b><span>合规爬虫资讯源（入 RAG 知识库）</span></div></div>
+    <div class="db"><div><b>baostock SDK</b><span>证券行情数据（入 RAG 知识库 / 行情页）</span></div></div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,3 @@
+# Baostock 采集模块依赖（独立于人民网模块）
+baostock>=0.9
+pandas>=1.5
