@@ -52,7 +52,7 @@ BAILIAN_ENABLED = os.getenv("TYT_BAILIAN_ENABLED", "0") == "1"   # 仅作默认�
 BAILIAN_BASE_URL = os.getenv("TYT_BAILIAN_BASE_URL", "https://dashscope.aliyuncs.com/compatible-mode/v1")
 BAILIAN_MODEL = os.getenv("TYT_BAILIAN_MODEL", "qwen-plus")
 BAILIAN_API_KEY = os.getenv("TYT_BAILIAN_API_KEY",
-                            "sk-ws-H.PEHMMEE.zm1V.MEQCIAbi0vQsVI8lHiyLhOAuMzbRbhAQJtlmsX75nPtlGS-HAiAuMeVne7CYI8pZrZSGnD-W1HNOmkYdCdmp4wrsq51o1w")
+                            "******")
 # 可使用百炼的最低角色（普通用户始终走本地 qwen2.5:1.5b）
 BAILIAN_MIN_ROLE = os.getenv("TYT_BAILIAN_MIN_ROLE", "premium")
 
@@ -61,7 +61,7 @@ BAILIAN_MIN_ROLE = os.getenv("TYT_BAILIAN_MIN_ROLE", "premium")
 # 普通用户始终本地 minicpm-v；百炼调用失败自动降级本地 minicpm-v
 BAILIAN_VISION_MODEL = os.getenv("TYT_BAILIAN_VISION_MODEL", "qwen-vl-ocr")
 BAILIAN_VISION_API_KEY = os.getenv("TYT_BAILIAN_VISION_API_KEY",
-                                   "sk-ws-H.PPHPREL.tDoh.MEQCICk2Modae5kvzK_U1y7Ggqn99Pz1jMtcW5cfNOYixXqmAiAlJRnBDjXWqfnftqcOM1KxQfIjb4rE0NEmFtsLw4RZhQ")
+                                   "******")
 
 # ==================== 天气（Open-Meteo 开放数据，无需 Key） ====================
 WEATHER_CACHE_MINUTES = 30
@@ -70,7 +70,7 @@ DEFAULT_LAT = 30.2741
 DEFAULT_LON = 120.1551
 
 # ==================== 高德地图 Web 端 Key（天气地图展示） ====================
-AMAP_JS_KEY = os.getenv("TYT_AMAP_KEY", "554871e15a2759c608c6f00f41289ad5")
+AMAP_JS_KEY = os.getenv("TYT_AMAP_KEY", "******")
 
 # ==================== Rerank 重排服务（bge-reranker-v2-m3） ====================
 RERANK_URL = os.getenv("TYT_RERANK_URL", "http://127.0.0.1:9999")
